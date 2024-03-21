@@ -1,0 +1,44 @@
+Author: Hena Naaz
+Course: ECE 6122
+Purpose of File: This is the solution for Lab 2 Problem 2
+
+The program in file MatrixMultiplier.cpp takes in an input file having matrix A and B and gives out a matrix C which is a multiplication of A and B.
+The program consists of openMP specific changes and pragmas. This txt file is to explain the comparison between program execution with and without openMP mode.
+
+This test was made using coc-ice.pace.gatech server on interactive queue with configuration command: "pace-interact -q coc-ice -l nodes=1:ppn=24"
+
+The performance analysis of the program was made using different square matrices as input. 
+Here, explaning the difference in usertime with/without openMP when using different size of matrices:
+
+---------------------------------------------------------------------------------------------
+| Square Matrix  |       **Without OpenMP**           |         **With OpenMP**             |
+|      Size      | Real Time |  User Time | Sys Time  |  Real Time |  User Time | Sys Time  |
+---------------------------------------------------------------------------------------------
+|       2        | 0m0.010s  | 0m0.002s   | 0m0.002s  | 0m0.010s   | 0m0.079s   | 0m0.007s  |
+---------------------------------------------------------------------------------------------
+|      10        | 0m0.042s  | 0m0.002s   | 0m0.008s  | 0m0.041s   | 0m0.079s   | 0m0.006s  |
+---------------------------------------------------------------------------------------------
+|      50        | 0m0.016s  | 0m0.009s   | 0m0.002s  | 0m0.017s   | 0m0.129s   | 0m0.004s  |
+---------------------------------------------------------------------------------------------
+|      70        | 0m0.024s  | 0m0.016s   | 0m0.003s  | 0m0.062s   | 0m0.256s   | 0m0.012s  |
+---------------------------------------------------------------------------------------------
+|      90        | 0m0.043s  | 0m0.026s   | 0m0.004s  | 0m0.058s   | 0m0.260s   | 0m0.005s  |
+---------------------------------------------------------------------------------------------
+|     100        | 0m0.119s  | 0m0.032s   | 0m0.007s  | 0m0.059s   | 0m0.213s   | 0m0.008s  |
+---------------------------------------------------------------------------------------------
+|     200        | 0m0.190s  | 0m0.178s   | 0m0.005s  | 0m0.119s   | 0m0.303s   | 0m0.029s  |
+---------------------------------------------------------------------------------------------
+|     500        | 0m2.245s  | 0m1.996s   | 0m0.014s  | 0m0.560s   | 0m2.217s   | 0m0.011s  |
+---------------------------------------------------------------------------------------------
+|     1000       | 0m14.399s | 0m14.255s  | 0m0.053s  | 0m2.530s   | 0m14.650s  | 0m0.055s  |
+---------------------------------------------------------------------------------------------
+|     1500       | 0m49.949s | 0m49.641s  | 0m0.107s  | 0m6.248s   | 0m48.641s  | 0m0.093s  |
+---------------------------------------------------------------------------------------------
+|     2000       | 1m57.071s | 1m56.498s  | 0m0.184s  | 0m11.340s  | 1m53.738s  | 0m0.202s  |
+---------------------------------------------------------------------------------------------
+
+Using the above data, it is shown that a comparison between the real time for run with openMP shows many folds improvement compared to the without OpenMP run.
+However, it is important to note that when the matrix size is small then the run with openMP is not as efficient as with larger matrix.
+This is expected as the parallel processing of data is not needed. When the matrix size goes larger, then there is enough data processing that can benefit from the openMP parallelism.
+It can also be noticed that for matrix size like 50*50 to 90*90, the run without openMP is better than run with openMP.
+From matrix size of 100*100, the run with OpenMP enabled has started performing better than run without OpenMP.
